@@ -80,8 +80,11 @@ const LOADERS = [{
   test: /\.html$/,
   loader: 'raw'
 }, {
+  test: /\.styl$/,
+  loaders: ['to-string', 'css', 'postcss', 'stylus'],
+}, {
   test: /\.css$/,
-  loaders: ['raw', 'postcss']
+  loaders: ['to-string', 'css', 'postcss']
 }, {
   test: /\.json$/,
   loader: 'json'
@@ -89,8 +92,14 @@ const LOADERS = [{
 
 const POSTCSS = function() {
   return [
-    require('postcss-cssnext')
+    require('postcss-cssnext'),
   ]
+}
+
+const STYLUS = {
+  import: [
+    '~stylus-mixins/index.styl',
+  ],
 }
 
 const DEFINE_CONSTANTS_PLUGIN = new DefinePlugin((function stringifyConstants() {
@@ -162,7 +171,8 @@ const BROWSER_CONFIG = {
   module: {
     loaders: LOADERS
   },
-  postcss: POSTCSS
+  postcss: POSTCSS,
+  stylus: STYLUS,
 };
 
 const WORKER_CONFIG = {
@@ -187,7 +197,8 @@ const WORKER_CONFIG = {
   module: {
     loaders: LOADERS
   },
-  postcss: POSTCSS
+  postcss: POSTCSS,
+  stylus: STYLUS,
 };
 
 const WORKER_APP_CONFIG = {
@@ -214,7 +225,8 @@ const WORKER_APP_CONFIG = {
   module: {
     loaders: LOADERS
   },
-  postcss: POSTCSS
+  postcss: POSTCSS,
+  stylus: STYLUS,
 };
 
 const SERVER_CONFIG = {
@@ -247,7 +259,8 @@ const SERVER_CONFIG = {
   module: {
     loaders: LOADERS
   },
-  postcss: POSTCSS
+  postcss: POSTCSS,
+  stylus: STYLUS,
 };
 
 const TESTING_CONFIG = {
